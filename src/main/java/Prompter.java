@@ -19,9 +19,6 @@ public class Prompter {
         System.out.println("\nPLAYER");
         System.out.println("==================");
         System.out.println("How many " + jar.getItemName() + " are in the jar? Pick a number between 1 and " + jar.getMaxItems());
-        System.out.println("\nReady? (press ENTER to start guessing)");
-        mReader.readLine();
-
         try {
             do {
                 System.out.print("Guess: ");
@@ -55,7 +52,7 @@ public class Prompter {
                     else{
                         attempt = "attempts";
                     }
-                    System.out.println("You got it in " + numberOfGuesses + attempt + "!");
+                    System.out.println("You got it in " + numberOfGuesses + " " + attempt + "!");
                 }
 
             } while (!rightAnswer);
