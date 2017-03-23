@@ -21,15 +21,21 @@ public class Prompter {
         System.out.println("How many " + jar.getItemName() + " are in the jar? Pick a number between 1 and " + jar.getMaxItems());
         try {
             do {
+                do {
                 System.out.print("Guess: ");
-
                 guess = mReader.readLine();
+                } while (!isInteger(guess));
+
                 if(guess == null || guess.equals("")) {
                     System.out.println("Please enter a response.");
                     continue;
                 }
                 if(Integer.parseInt(guess) == 0){
                     System.out.println("Guess cannot be 0");
+                    continue;
+                }
+                if(Integer.parseInt(guess) < 0){
+                    System.out.println("Guess cannot be negative");
                     continue;
                 }
                 if(Integer.parseInt(guess) > jar.getMaxItems()){
@@ -64,42 +70,50 @@ public class Prompter {
 
     }
 
-    public Jar setup() throws IOException{
+    public Jar setup() throws IOException {
         System.out.println("\nADMINISTRATOR SETUP");
         System.out.println("======================");
         String item;
         do {
             System.out.print("What type of item should fill the jar? ");
             item = mReader.readLine();
-            if(item == null || item.equals("")){
+            if (item == null || item.equals("")) {
                 System.out.println("Please enter an item");
             }
-        }while(item == null || item.equals(""));
+        } while (item == null || item.equals(""));
         boolean valid;
         int maxItems;
-        do{
+        do {
             String input;
             do {
-            System.out.print("What is the maximum amount of " + item + "? ");
-            input = mReader.readLine();
-                if((input == null) || input.equals("")){
+                System.out.print("What is the maximum amount of " + item + "? ");
+                input = mReader.readLine();
+                if ((input == null) || input.equals("")) {
                     System.out.println("Please enter a maximum amount of " + item + ".");
                 }
-            }while (input == null || input.equals(""));
+            } while (input == null || input.equals("") || !isInteger(input));
 
             maxItems = Integer.parseInt(input);
             if (maxItems <= 0) {
-                System.out.println("0 is not a valid maximum amount.");
+                System.out.println(maxItems + " is not a valid maximum amount.");
                 valid = false;
-            }
-            else {
+            } else {
                 valid = true;
             }
         } while (!valid);
 
-        return new Jar(item,maxItems);
+        return new Jar(item, maxItems);
 
     }
 
+    public static boolean isInteger(String str){
+        try {
+            Integer.parseInt(str);
+            return true;
+        }catch (NumberFormatException nfe){
+            System.out.println(str + " is not an integer. Please enter an integer.");
+            return false;
+        }
+    }
 
 }
