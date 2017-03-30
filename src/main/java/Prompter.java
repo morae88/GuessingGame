@@ -1,3 +1,5 @@
+import com.sun.xml.internal.fastinfoset.util.CharArray;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -111,7 +113,7 @@ public class Prompter {
             Integer.parseInt(str);
             return true;
         }catch (NumberFormatException nfe){
-            System.out.println(str + " is not an integer. Please enter an integer.");
+            System.out.println(str.substring(0,1).toUpperCase() + str.substring(1) + " is not an integer. Please enter an integer.");
             return false;
         }
     }
